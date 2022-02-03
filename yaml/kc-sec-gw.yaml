@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: kc-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - hosts:
+      - "*"
+      port:
+        number: 80
+        name: http
+        protocol: HTTP
+      tls:
+        httpsRedirect: false # set to true if you want to force the redirection to HTTPS
+    - hosts:
+      - "*"
+      port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: kc-tls
